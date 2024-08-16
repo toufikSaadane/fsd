@@ -50,7 +50,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/api/auth/**")
                         .permitAll()
-//                        .requestMatchers(HttpMethod.GET, "/api/subreddit")
+//                        .requestMatchers(HttpMethod.GET, "/api/category")
 //                        .permitAll()
 //                        .requestMatchers(HttpMethod.GET, "/api/posts/")
 //                        .permitAll()

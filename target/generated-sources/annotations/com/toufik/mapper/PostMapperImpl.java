@@ -2,23 +2,23 @@ package com.toufik.mapper;
 
 import com.toufik.dto.PostRequest;
 import com.toufik.dto.PostResponse;
+import com.toufik.model.Category;
 import com.toufik.model.Post;
-import com.toufik.model.Subreddit;
 import com.toufik.model.User;
 import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-08-16T19:39:02+0200",
-    comments = "version: 1.5.3.Final, compiler: javac, environment: Java 17.0.1 (Oracle Corporation)"
+    date = "2024-08-17T00:26:23+0200",
+    comments = "version: 1.5.3.Final, compiler: javac, environment: Java 17.0.12 (Oracle Corporation)"
 )
 @Component
 public class PostMapperImpl extends PostMapper {
 
     @Override
-    public Post map(PostRequest postRequest, Subreddit subreddit, User user) {
-        if ( postRequest == null && subreddit == null && user == null ) {
+    public Post map(PostRequest postRequest, Category category, User user) {
+        if ( postRequest == null && category == null && user == null ) {
             return null;
         }
 
@@ -30,7 +30,7 @@ public class PostMapperImpl extends PostMapper {
             post.postName( postRequest.getPostName() );
             post.url( postRequest.getUrl() );
         }
-        post.subreddit( subreddit );
+        post.category( category );
         post.user( user );
         post.createdDate( java.time.Instant.now() );
         post.voteCount( 0 );
@@ -47,7 +47,7 @@ public class PostMapperImpl extends PostMapper {
         PostResponse postResponse = new PostResponse();
 
         postResponse.setId( post.getPostId() );
-        postResponse.setSubredditName( postSubredditName( post ) );
+        postResponse.setCategoryName( postCategoryName( post ) );
         postResponse.setUserName( postUserUsername( post ) );
         postResponse.setPostName( post.getPostName() );
         postResponse.setUrl( post.getUrl() );
@@ -62,15 +62,15 @@ public class PostMapperImpl extends PostMapper {
         return postResponse;
     }
 
-    private String postSubredditName(Post post) {
+    private String postCategoryName(Post post) {
         if ( post == null ) {
             return null;
         }
-        Subreddit subreddit = post.getSubreddit();
-        if ( subreddit == null ) {
+        Category category = post.getCategory();
+        if ( category == null ) {
             return null;
         }
-        String name = subreddit.getName();
+        String name = category.getName();
         if ( name == null ) {
             return null;
         }

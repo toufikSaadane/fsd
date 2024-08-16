@@ -3,11 +3,11 @@ package com.toufik.service;
 import com.toufik.dto.PostRequest;
 import com.toufik.dto.PostResponse;
 import com.toufik.mapper.PostMapper;
+import com.toufik.model.Category;
 import com.toufik.model.Post;
-import com.toufik.model.Subreddit;
 import com.toufik.model.User;
+import com.toufik.repository.CategoryRepository;
 import com.toufik.repository.PostRepository;
-import com.toufik.repository.SubredditRepository;
 import com.toufik.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,15 +27,15 @@ import static java.util.stream.Collectors.toList;
 public class PostService {
 
   private final PostRepository postRepository;
-  private final SubredditRepository subredditRepository;
+  private final CategoryRepository categoryRepository;
   private final UserRepository userRepository;
   private final AuthService authService;
   private final PostMapper postMapper;
 
   public void save(PostRequest postRequest) {
-    Subreddit subreddit = subredditRepository.findByName(postRequest.getSubredditName())
-        .orElseThrow(() -> new RuntimeException(postRequest.getSubredditName()));
-    postRepository.save(postMapper.map(postRequest, subreddit, authService.getCurrentUser()));
+    Category category = categoryRepository.findByName(postRequest.getCategoryName())
+        .orElseThrow(() -> new RuntimeException(postRequest.getCategoryName()));
+    postRepository.save(postMapper.map(postRequest, category, authService.getCurrentUser()));
   }
 
   @Transactional(readOnly = true)
@@ -54,10 +54,10 @@ public class PostService {
   }
 
   @Transactional(readOnly = true)
-  public List<PostResponse> getPostsBySubreddit(Long subredditId) {
-    Subreddit subreddit = subredditRepository.findById(subredditId)
-        .orElseThrow(() -> new RuntimeException(subredditId.toString()));
-    List<Post> posts = postRepository.findAllBySubreddit(subreddit);
+  public List<PostResponse> getPostsByCategory(Long categoryId) {
+    Category category = categoryRepository.findById(categoryId)
+        .orElseThrow(() -> new RuntimeException(categoryId.toString()));
+    List<Post> posts = postRepository.findAllByCategory(category);
     return posts.stream().map(postMapper::mapToDto).collect(toList());
   }
 

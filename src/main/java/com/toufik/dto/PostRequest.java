@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class PostRequest {
   private Long postId;
-  private String subredditName;
+  private String categoryName;
   @NotBlank(message = "Post Name cannot be empty or Null")
   private String postName;
   private String url;

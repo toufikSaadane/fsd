@@ -1,0 +1,20 @@
+-------------------------------------------------------------------------------
+Test set: com.toufik.controller.AuthenticationControllerTest
+-------------------------------------------------------------------------------
+Tests run: 5, Failures: 1, Errors: 3, Skipped: 0, Time elapsed: 0.271 s <<< FAILURE! - in com.toufik.controller.AuthenticationControllerTest
+signup_ReturnsErrorMessage_WhenSignupFails  Time elapsed: 0.247 s  <<< ERROR!
+java.lang.RuntimeException: Signup failed
+	at com.toufik.controller.AuthenticationControllerTest.signup_ReturnsErrorMessage_WhenSignupFails(AuthenticationControllerTest.java:39)
+
+logout_ReturnsErrorMessage_WhenLogoutFails  Time elapsed: 0.001 s  <<< ERROR!
+java.lang.RuntimeException: Logout failed
+	at com.toufik.controller.AuthenticationControllerTest.logout_ReturnsErrorMessage_WhenLogoutFails(AuthenticationControllerTest.java:76)
+
+verifyAccount_ReturnsErrorMessage_WhenAccountVerificationFails  Time elapsed: 0.009 s  <<< FAILURE!
+java.lang.AssertionError
+	at com.toufik.controller.AuthenticationControllerTest.verifyAccount_ReturnsErrorMessage_WhenAccountVerificationFails(AuthenticationControllerTest.java:49)
+
+refreshTokens_ReturnsNull_WhenRefreshTokenFails  Time elapsed: 0 s  <<< ERROR!
+java.lang.RuntimeException: Refresh token failed
+	at com.toufik.controller.AuthenticationControllerTest.refreshTokens_ReturnsNull_WhenRefreshTokenFails(AuthenticationControllerTest.java:67)
+
