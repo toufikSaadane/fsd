@@ -11,6 +11,7 @@ import com.toufik.repository.UserRepository;
 import com.toufik.repository.VerificationTokenRepository;
 import com.toufik.security.JwtProvider;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -29,6 +30,7 @@ import java.util.UUID;
 @Service
 @AllArgsConstructor
 @Transactional
+@Slf4j
 public class AuthService {
 
     private final PasswordEncoder passwordEncoder;
@@ -50,9 +52,14 @@ public class AuthService {
         userRepository.save(user);
 
         String token = generateVerificationToken(user);
-        mailService.sendMail(new NotificationEmail("Please Activate your Account",
+        try {
+            mailService.sendMail(new NotificationEmail("Please Activate your Account",
                 user.getEmail(), "please click on the below url to activate your account : " +
                 "http://localhost:8080/api/auth/accountVerification/" + token));
+        }catch (Exception e) {
+            log.error("Error occurred while sending email", e);
+            throw new RuntimeException("Error occurred while sending email to " + user.getEmail());
+        }
     }
 
     @Transactional(readOnly = true)
