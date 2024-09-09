@@ -2,6 +2,7 @@ package com.toufik.controller;
 
 import com.toufik.dto.CommentsDto;
 import com.toufik.service.CommentService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +15,7 @@ import static org.springframework.http.HttpStatus.OK;
 @RestController
 @RequestMapping("/api/comments")
 @AllArgsConstructor
+@SecurityRequirement(name = "BearerAuth")
 public class CommentsController {
 
   private final CommentService commentService;

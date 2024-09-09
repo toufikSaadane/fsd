@@ -2,6 +2,7 @@ package com.toufik.controller;
 
 import com.toufik.dto.CategoryDto;
 import com.toufik.service.CategoryService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -14,12 +15,14 @@ import java.util.List;
 @RequestMapping("/api/category")
 @AllArgsConstructor
 @Slf4j
+@SecurityRequirement(name = "BearerAuth")
 public class CategoryController {
 
     private final CategoryService categoryService;
 
     @PostMapping
     public ResponseEntity<CategoryDto> createcategory(@RequestBody CategoryDto categoryDto) {
+        log.info("Request to create category: {}", categoryDto);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(categoryService.save(categoryDto));
     }

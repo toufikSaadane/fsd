@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -50,17 +51,26 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/api/auth/**")
                         .permitAll()
-//                        .requestMatchers(HttpMethod.GET, "/api/category")
-//                        .permitAll()
-//                        .requestMatchers(HttpMethod.GET, "/api/posts/")
-//                        .permitAll()
-//                        .requestMatchers(HttpMethod.GET, "/api/posts/**")
-//                        .permitAll()
-                        .requestMatchers("/v2/api-docs",
+                        .requestMatchers(HttpMethod.GET, "/api/category")
+                        .permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/posts")
+                        .permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/posts/**")
+                        .permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/news")
+                        .permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/comments")
+                        .permitAll()
+                        .requestMatchers(
+                                "/v3/api-docs/**",
+                                "/v3/api-docs",
+                                "/v2/api-docs",
                                 "/configuration/ui",
+                                "/swagger-resources",
                                 "/swagger-resources/**",
                                 "/configuration/security",
                                 "/swagger-ui.html",
+                                "/swagger-ui/**",
                                 "/webjars/**")
                         .permitAll()
                         .anyRequest()

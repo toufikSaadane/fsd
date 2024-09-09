@@ -3,6 +3,7 @@ package com.toufik.controller;
 import com.toufik.dto.PostRequest;
 import com.toufik.dto.PostResponse;
 import com.toufik.service.PostService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +16,7 @@ import static org.springframework.http.ResponseEntity.status;
 @RestController
 @RequestMapping("/api/posts")
 @AllArgsConstructor
+@SecurityRequirement(name = "BearerAuth")
 public class PostController {
 
   private final PostService postService;
